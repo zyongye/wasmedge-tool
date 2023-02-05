@@ -93,6 +93,7 @@ int main(int argc, const char* argv[]) {
     if(argc > 5){
         print_too_many_args_error();
         print_help_message();
+        return -1;
     }
 
     long long add1, add2;
@@ -113,16 +114,21 @@ int main(int argc, const char* argv[]) {
                 run_wasm_module(argv[2], add1, add2);
             }else{
                 print_parsing_error();
+                return -1;
             }   
         }
     }else if(argc < 4){
         print_too_few_args_error();
+        return -1;
+    }else if(argc > 4){
+        print_too_many_args_error();
         return -1;
     }else{
         if(parse_add_args(&add1, &add2, argv[2], argv[3]) == 0){
             run_wasm_module(argv[1], add1, add2); 
         }else{
             print_parsing_error();
+            return -1;
         }
     }
 
